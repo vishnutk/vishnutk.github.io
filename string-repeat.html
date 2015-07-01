@@ -1,0 +1,162 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/prism.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <!-- <p>Hello world! This is HTML5 Boilerplate.
+            <pre><code class="language-javascript">
+                    function showDemo() {
+                        var demo = 3;
+                        alert( demo );
+                    }
+            </code></pre>
+            <pre><code class="language-css">p { color: red }</code></pre>
+        </p>
+
+        <a href="string-repeat.html">
+            String Repeat
+        </a> -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">
+                      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                  </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Tech Info</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+
+        <div class="container mainContainer">
+            <div class="page-header">
+                <h1>ES6 String.repeat <small>with console.time()</small></h1>
+                <h4><i class="text-muted"> Jun 30, 2015</i></h4>
+            </div>
+            <p class="lead">
+                Today, I was trying to implement a simple Staircase problem. With implementation 1 I wrote it using
+                two for loops. Its works and I was able to see staircases on the browser.
+                But as I tried to increment n by multiple of 10000, browser stop to respond.
+
+                Thereafter I used String.prototype.repeat for the same problem. This native method then shows
+                its features. There was a huge performance gain and was able to achive the same result.
+
+                Just check below two approaches and the time difference. console.time() helps a lot.
+                <strong>787 ms</strong> improvement for n=10000
+            </p>
+            <p>
+                <h2>Implementation 1</h2>
+                <pre><code class="language-javascript line-numbers" data-start="1">
+                // n = 10000
+                // processData: 798.195ms
+                console.time('processData');
+                function processData( n ) {
+                    var i, j, str;
+
+                    for( i = 0; i < n; i++ ) {
+                        str = '';
+                        for( j = n; j > 0; j-- ) {
+                            if(j <= i+1) {
+                                str = str + '#';
+                            } else {
+                                str = str + ' ';
+                            }
+
+                        }
+                        // Below statement is commented explicitly since n is a large number.
+                        // console.log( str );
+                    }
+                }
+                processData(10000);
+                console.timeEnd('processData');
+
+                Output (n=5):
+                    #
+                   ##
+                  ###
+                 ####
+                #####
+</code></pre>
+</p>
+<p>
+    <h2>Implementation 2</h2>
+    <pre><code class="language-javascript  line-numbers" data-start="1">
+                // n=10000
+                // processData: 11.759ms
+
+                // n=100000
+                // processData: 97.847ms
+
+
+                console.time('processData');
+                function processData( n ) {
+                    var i,
+                        str;
+
+                    for( i = 1; i <= n; i++ ) {
+                        str = ' '.repeat( n-i ) + '#'.repeat( i );
+                        // Below statement is commented explicitly since n is a large number.
+                        // console.log( str );
+                    }
+                }
+                processData(10000);
+                console.timeEnd('processData');
+
+                Output (n=5):
+                    #
+                   ##
+                  ###
+                 ####
+                #####
+
+                </code></pre>
+            </p>
+
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/vendor/prism.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    </body>
+</html>
